@@ -5,12 +5,28 @@ type ProductBoxProps = {
     name: string,
     price: number | string;
     imageUrl: string | null;
+    index?: number
 }
 
-const ProductBox = ({ name, price, imageUrl }: ProductBoxProps) => {
+const ProductBox = ({ name, price, imageUrl, index }: ProductBoxProps) => {
     return (
-        <div className=" border-2 border-primary-30 rounded-2xl overflow-auto p-4 ">
-            <div className="relative w-full h-80 rounded-2xl overflow-auto mb-4 ">
+        <div
+            className={`border-2 border-primary-30 rounded-2xl overflow-auto p-4
+  ${index !== undefined && index > 1
+                    ? "md:hidden"
+                    : "md:block"
+                }
+  ${index !== undefined && index > 2
+                    ? "lg:hidden"
+                    : "lg:block"
+                }
+  ${index !== undefined && index > 3
+                    ? "2xl:hidden"
+                    : "2xl:block"
+                }
+`}
+        >
+            <div className="relative w-full h-80 rounded-2xl overflow-auto mb-4 min-w-74.5 ">
                 {imageUrl && (
                     <Image
                         src={imageUrl}
@@ -63,19 +79,26 @@ export default async function HomeNewestProducts() {
 
     return (
         <div className="py-6 px-4">
-            <h6 className=" text-h6 mb-6 ">جدیدترین محصولات</h6>
-            <div className="">
-                {firstProduct ? (
+            <h6 className=" text-h6 mb-6 text-xl leading-7.5 md:text-2xl md:leading-12 ">جدیدترین محصولات</h6>
+            <div className="md:hidden">
+                {firstProduct && (
                     <ProductBox
                         name={firstProduct.title}
                         price={firstProduct.product_variants?.[0]?.price ?? "ناموجود"}
                         imageUrl={firstProduct.image}
                     />
-                ) : (
-                    <div className="">
-                        <p>محصولی وجود ندارد</p>
-                    </div>
                 )}
+            </div>
+            <div className="hidden md:flex md:justify-between">
+                {productsWithImage.map((product, index) => (
+                    <ProductBox
+                        key={product.id}
+                        name={product.title}
+                        price={product.product_variants?.[0]?.price ?? "ناموجود"}
+                        imageUrl={product.image}
+                        index={index}
+                    />
+                ))}
             </div>
         </div>
     )
