@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  images: {
+    domains: ["zmacusagtplnpcfrdnnb.supabase.co"],
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

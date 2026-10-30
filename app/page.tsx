@@ -1,5 +1,8 @@
 import HomeCategories from "@/components/main-page/categories/HomeCategories";
+import HomeNewestProducts from "@/components/main-page/newest-products/HomeNewestProducts";
+import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
+import { Suspense } from "react";
 
 
 
@@ -29,6 +32,10 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {/*  NEWEST PRODUCTS SECTION  */}
+        <Suspense fallback={<Spinner />} >
+          <HomeNewestProducts />
+        </Suspense>
       </div>
     </div>
   );
