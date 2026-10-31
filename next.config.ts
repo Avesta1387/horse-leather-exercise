@@ -6,7 +6,13 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   images: {
-    domains: ["zmacusagtplnpcfrdnnb.supabase.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "zmacusagtplnpcfrdnnb.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
   },
   cacheComponents: true,
   partialPrefetching: true,
