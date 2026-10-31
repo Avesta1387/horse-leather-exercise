@@ -1,7 +1,9 @@
+import BestSellers from "@/components/main-page/best-sellers/BestSellers";
 import HomeCategories from "@/components/main-page/categories/HomeCategories";
 import HomeNewestProducts from "@/components/main-page/newest-products/HomeNewestProducts";
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
+import Link from "next/link";
 import { Suspense } from "react";
 
 
@@ -35,6 +37,47 @@ export default function Home() {
         {/*  NEWEST PRODUCTS SECTION  */}
         <Suspense fallback={<Spinner />} >
           <HomeNewestProducts />
+        </Suspense>
+
+        {/*  CATEGORIES IMAGES  */}
+        <div className="grid grid-cols-2 justify-between items-center w-fit mx-auto gap-4 mb-6
+          md:grid-cols-4
+          lg:grid-cols-3 
+          2xl:grid-cols-4
+        ">
+          <Link href={'/'}>
+            <div className=" relative w-42.5 h-65 rounded-lg overflow-auto
+              lg:w-75.5 lg:h-146.5
+            ">
+              <Image src={'/images/banners-and-backgrounds/men-clothes-leather-coat-red.png'} alt="تصویر کت چرمی قرمز مردانه" fill className="object-center" />
+            </div>
+          </Link>
+          <Link href={'/'}>
+            <div className=" relative w-42.5 h-65 rounded-lg overflow-auto
+              lg:w-75.5 lg:h-146.5
+            ">
+              <Image src={'/images/banners-and-backgrounds/women-clothes-leather-coat.png'} alt="تصویر کت چرمی زنانه" fill className="object-center" />
+            </div>
+          </Link>
+          <Link href={'/'}>
+            <div className=" relative w-42.5 h-65 rounded-lg overflow-auto
+              lg:w-75.5 lg:h-146.5
+            ">
+              <Image src={'/images/banners-and-backgrounds/men-leather-coat.png'} alt="تصویر کت چرمی مردانه" fill className="object-center" />
+            </div>
+          </Link>
+          <Link href={'/'}>
+            <div className=" relative w-42.5 h-65 rounded-lg overflow-auto
+              lg:w-75.5 lg:h-146.5 
+            ">
+              <Image src={'/images/banners-and-backgrounds/women-bag.png'} alt="تصویر کیف زنانه" fill className="object-center" />
+            </div>
+          </Link>
+        </div>
+
+        {/*  BEST SELLERS SECTION  */}
+        <Suspense fallback={<Spinner />} >
+          <BestSellers />
         </Suspense>
       </div>
     </div>
