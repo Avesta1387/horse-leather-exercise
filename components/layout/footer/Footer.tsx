@@ -8,7 +8,7 @@ export default function Footer() {
         <footer className="">
             <NewsletterSection />
             <FooterLists />
-            <p className="font-bold text-lg leading-8 text-center lg:font-normal ">تمامی حقوق برای چرم هورس محفوظ است.</p>
+            <p className="font-bold text-lg leading-8 text-center lg:font-normal mb-19 md:mb-0 ">تمامی حقوق برای چرم هورس محفوظ است.</p>
         </footer>
     )
 };

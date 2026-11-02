@@ -81,7 +81,7 @@ export default function FooterLists() {
     return (
         <div className="py-6 mx-4  border-b border-primary-100 mb-4 lg:pt-10 lg:mx-0 ">
             <div className="container mx-auto ">
-                <div className="flex flex-col lg:grid lg:grid-cols-3 xl:grid-cols-4 ">
+                <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
                     <FooterList
                         title="آدرس شعب"
                         items={addressesList}
@@ -90,7 +90,7 @@ export default function FooterLists() {
                         title="دسترسی سریع"
                         items={quickAccesses}
                     />
-                    <div className="lg:hidden">
+                    <div className="md:hidden">
                         <FooterList
                             title="خدمات مشتریان"
                             items={customerServices}
