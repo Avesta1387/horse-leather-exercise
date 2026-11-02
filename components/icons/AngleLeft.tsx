@@ -1,0 +1,12 @@
+import { SVGProps } from "react";
+
+
+
+export default function SvgAngleLeft(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg width="9" height="18" viewBox="0 0 9 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} >
+            <path d="M7.8475 16.59L1.3275 10.07C0.5575 9.3 0.5575 8.04 1.3275 7.27L7.8475 0.75" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" stroke="black" />
+        </svg>
+
+    )
+};
