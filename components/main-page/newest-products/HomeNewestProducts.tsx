@@ -16,8 +16,6 @@ export default async function HomeNewestProducts() {
                 )
             `)
         .order('created_at', { ascending: false });
-    console.log("Products:", products);
-    console.log("Products Error:", productsError);
 
     const productsWithImage = (products ?? []).map((product) => {
         const mainImage = product.images?.find(
