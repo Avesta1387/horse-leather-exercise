@@ -1,5 +1,6 @@
 import BestSellers from "@/components/main-page/best-sellers/BestSellers";
 import HomeCategories from "@/components/main-page/categories/HomeCategories";
+import HorseMagSection from "@/components/main-page/horse-mag-section/HorseMagSection";
 import HomeNewestProducts from "@/components/main-page/newest-products/HomeNewestProducts";
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
@@ -78,6 +79,11 @@ export default function Home() {
         {/*  BEST SELLERS SECTION  */}
         <Suspense fallback={<Spinner />} >
           <BestSellers />
+        </Suspense>
+
+        {/*  HORSE MAG SECTION  */}
+        <Suspense fallback={<Spinner />}>
+          <HorseMagSection />
         </Suspense>
       </div>
     </div>
