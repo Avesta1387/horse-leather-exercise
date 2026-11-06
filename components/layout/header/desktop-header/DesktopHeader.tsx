@@ -3,6 +3,7 @@ import SvgCartBag from "@/components/icons/CartBag";
 import SvgLogin from "@/components/icons/Login";
 import SvgSearchNormal from "@/components/icons/SearchNormal";
 import Image from "next/image";
+import Link from "next/link";
 
 
 
@@ -13,9 +14,9 @@ export default function DesktopHeader() {
             <div className="container mx-auto pt-5 pb-4">
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-10">
-                        <div className="relative w-66.75 h-10 ">
+                        <Link href={'/'} className="relative w-66.75 h-10 ">
                             <Image src={'/images/logo.png'} alt="لوگو وبسایت" fill className="object-cover" />
-                        </div>
+                        </Link>
                         <div className="w-89.5 py-3 px-3 flex items-center gap-3 border-2 border-black rounded-3xl ">
                             <SvgSearchNormal className="w-6 h-6 text-black" />
                             <input type="text" className="outline-0" />
