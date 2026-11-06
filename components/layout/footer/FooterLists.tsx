@@ -61,6 +61,7 @@ const quickAccesses = [
     { id: 1, label: "فروشگاه", href: "/" },
     { id: 2, label: "محصولات مردانه", href: "/" },
     { id: 3, label: "محصولات زنانه", href: "/" },
+    {id:4,label:'تماس با ما',href:'/contact-us'}
 ];
 
 const customerServices = [
