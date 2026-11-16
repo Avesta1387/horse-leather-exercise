@@ -17,9 +17,10 @@ export default function PostCard({ id, name, imageUrl, excerpt }: PostCardProps)
                     <Image
                         src={imageUrl}
                         fill
-                        sizes="348px"
+                        sizes="(max-width: 768px) 100vw, 300px"
                         alt={name}
                         className="object-cover"
+                        unoptimized
                     />
                 )}
             </div>

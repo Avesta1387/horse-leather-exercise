@@ -5,12 +5,15 @@ import HomeNewestProducts from "@/components/main-page/newest-products/HomeNewes
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
 import Link from "next/link";
+import { connection } from "next/server";
 import { Suspense } from "react";
 
 
 
 
-export default function Home() {
+export default async function Home() {
+
+  // await connection();
 
   return (
     <div className="mt-31.25 md:pt-12 lg:mt-48.25 ">

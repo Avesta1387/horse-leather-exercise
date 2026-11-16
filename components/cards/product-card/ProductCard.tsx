@@ -26,14 +26,15 @@ export default function ProductCard({ name, price, imageUrl, index }: ProductBox
                 }
 `}
         >
-            <div className="relative w-full h-80 rounded-2xl overflow-auto mb-4 min-w-74.5 max-w-75.5 ">
+            <div className="relative w-full h-80 rounded-2xl overflow-hidden mb-4 min-w-74.5 max-w-75.5">
                 {imageUrl && (
                     <Image
                         src={imageUrl}
                         alt={name}
                         className="object-cover"
                         fill
-                    // unoptimized
+                        sizes="(max-width: 768px) 100vw, 300px"
+                        unoptimized
                     />
                 )}
             </div>

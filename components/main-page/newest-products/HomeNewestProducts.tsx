@@ -1,10 +1,13 @@
 import ProductCard from "@/components/cards/product-card/ProductCard";
 import { createServerSupabaseClient } from "@/lib/supabase/server"
 import Image from "next/image";
+import { connection } from "next/server";
 
 
 
 export default async function HomeNewestProducts() {
+
+    await connection();
 
     const supabase = await createServerSupabaseClient();
 

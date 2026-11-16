@@ -5,11 +5,12 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
-  images: {
+   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "zmacusagtplnpcfrdnnb.supabase.co",
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "54321",
         pathname: "/storage/v1/object/public/**",
       },
     ],

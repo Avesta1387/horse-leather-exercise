@@ -1,10 +1,14 @@
 import ProductCard from "@/components/cards/product-card/ProductCard";
-import { createServerSupabaseClient } from "@/lib/supabase/server"
+
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { connection } from "next/server";
 
 
 
 
 export default async function BestSellers() {
+
+    await connection();
 
     const supabase = await createServerSupabaseClient();
 
@@ -43,16 +47,16 @@ export default async function BestSellers() {
             <h6 className="text-6 mb-6 text-xl leading-7.5 md:text-2xl md:leading-12 ">پرفروش ترین محصولات</h6>
             <div className="md:hidden">
                 <ProductCard
-                    name={firstProduct.title}
-                    imageUrl={firstProduct.image}
-                    price={firstProduct.product_variants?.[0]?.price ?? "ناموجود"}
+                    name={firstProduct?.title}
+                    imageUrl={firstProduct?.image}
+                    price={firstProduct?.product_variants?.[0]?.price ?? "ناموجود"}
                 />
             </div>
             <div className="hidden md:flex md:justify-between">
                 {productsWithImage.map((product, index) => (
                     <ProductCard
                         key={product.id}
-                        name={product.title}
+                        name={product?.title}
                         price={product.product_variants?.[0]?.price ?? "ناموجود"}
                         imageUrl={product.image}
                         index={index}
@@ -62,3 +66,11 @@ export default async function BestSellers() {
         </div>
     )
 };
+
+
+// export default async function BestSellers() {
+//     await connection();
+
+//     const supabase = await createServerSupabaseClient();
+//     return <div>Newest Products</div>;
+// }

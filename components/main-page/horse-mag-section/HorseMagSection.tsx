@@ -3,11 +3,14 @@ import { Vector } from "@/components/icons";
 import SvgAngleLeft from "@/components/icons/AngleLeft";
 import { createServerSupabaseClient } from "@/lib/supabase/server"
 import { ArrowLeft } from "lucide-react";
+import { connection } from "next/server";
 
 
 
 
 export default async function HorseMagSection() {
+
+    await connection();
 
     const supabase = await createServerSupabaseClient();
 
@@ -41,7 +44,6 @@ export default async function HorseMagSection() {
         }
     })
 
-    console.log("IMAGES URLS:", postsWithImage.map(post => post.imageUrl));
 
     const firstPost = postsWithImage[0];
 

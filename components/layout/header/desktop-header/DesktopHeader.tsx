@@ -1,14 +1,24 @@
+import DesktopLogin from "@/components/auth/desktop-login/DesktopLogin";
 import SvgCallCalling from "@/components/icons/CallCalling";
 import SvgCartBag from "@/components/icons/CartBag";
 import SvgLogin from "@/components/icons/Login";
+import SvgProfile from "@/components/icons/Profile";
 import SvgSearchNormal from "@/components/icons/SearchNormal";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
+import { connection } from "next/server";
 
 
 
 
-export default function DesktopHeader() {
+export default async function DesktopHeader() {
+    await connection();
+
+    const supabase = await createServerSupabaseClient();
+
+    const { data: { user } } = await supabase.auth.getUser();
+
     return (
         <header className="hidden border-b border-black lg:block fixed z-40 bg-white w-full ">
             <div className="container mx-auto pt-5 pb-4">
@@ -23,10 +33,13 @@ export default function DesktopHeader() {
                         </div>
                     </div>
                     <div className="flex gap-6 items-center">
-                        <p className="bg-primary-100 text-white flex p-2 rounded-lg ">
-                            <SvgLogin />
-                            ورود | عضویت
-                        </p>
+                        {!user
+                            ? <DesktopLogin />
+                            : <Link href={'/profile'} className=" py-3 px-2 bg-primary-100 rounded-lg " >
+                                <SvgProfile className="text-white w-6 h-6 " />
+                            </Link>
+
+                        }
                         <div className="bg-primary-30 py-2 px-4 rounded-lg">
                             <SvgCartBag />
                         </div>
