@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /lib/supabase
+/backups
+
+# Sensitive database dumps
+supabase/data.sql
+supabase/public-data.sql
