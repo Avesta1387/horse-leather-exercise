@@ -1,6 +1,7 @@
 'use client'
 
 import ErrorBox from "@/components/error-box/ErrorBox"
+import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link"
 import { Dispatch, SetStateAction, useState } from "react"
 
@@ -20,6 +21,7 @@ export default function InsertPhoneStep({
 }: InsertPhoneStepProps) {
     const [acceptedRules, setAcceptedRules] = useState(false);
     const [phoneTouched, setPhoneTouched] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const isPhoneValid = /^09\d{9}$/.test(phone);
 
@@ -34,11 +36,13 @@ export default function InsertPhoneStep({
     const isFormValid = isPhoneValid && acceptedRules;
 
     const handleContinue = async () => {
+        setLoading(true);
         setPhoneTouched(true);
 
         if (!isFormValid) return;
 
         await onContinue();
+        setLoading(false)
     };
 
 
@@ -119,7 +123,7 @@ export default function InsertPhoneStep({
                     ? "text-white bg-primary-100 cursor-pointer"
                     : "text-primary-70 bg-primary-30 cursor-not-allowed"
                     }`}
-            >تایید و ادامه</button>
+            >{loading ? < Spinner /> : 'تایید و ادامه'}</button>
             {authError && (
                 <div className="relative">
                     <div className="absolute flex justify-center items-center right-1/5 -top-60 ">

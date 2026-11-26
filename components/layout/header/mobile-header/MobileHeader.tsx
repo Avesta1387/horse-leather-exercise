@@ -14,9 +14,6 @@ export default function MobileHeader() {
                         <Image src={'/images/logo.png'} width={160} height={26} alt="لوگو وبسایت" />
                     </Link>
                     <div className="flex gap-4 items-center">
-                        <div className=" py-1 px-2 bg-primary-100 w-fit rounded-lg ">
-                            <SvgCartBag className="w-6 h-6 text-white" />
-                        </div>
                         <div className="py-4 px-3 bg-primary-30 w-fit rounded-lg">
                             <div className="w-4.5 h-0.5 bg-primary-100 relative 
                             before:content-[''] before:w-4.5 before:h-0.5 before:absolute before:bg-primary-100 before:bottom-1.25

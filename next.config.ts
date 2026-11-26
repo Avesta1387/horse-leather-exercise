@@ -4,8 +4,9 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     agentFeedback: true,
+    agentUpgrade: false,
   },
-   images: {
+  images: {
     remotePatterns: [
       {
         protocol: "http",

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import SvgIncrease from "../icons/Increase";
 import SvgDecrease from "../icons/Decrease";
 import ErrorBox from "../error-box/ErrorBox";
+import { useRouter } from "next/navigation";
 
 
 export type ProductSize = {
@@ -39,7 +40,7 @@ type Props = {
     variants: ProductVariant[];
 };
 export default function ProductSelectVariant({ variants }: Props) {
-
+    const router = useRouter();
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(variants[0] ?? null);
     const [quantity, setQuantity] = useState(1);
     const [logInError, setLogInError] = useState(false);
@@ -157,6 +158,7 @@ export default function ProductSelectVariant({ variants }: Props) {
             return;
         }
 
+        router.refresh();
         setQuantity(1);
         setIsInCart(true);
     }
@@ -197,6 +199,7 @@ export default function ProductSelectVariant({ variants }: Props) {
         }
 
         setQuantity(newQuantity);
+        router.refresh();
     };
 
 
@@ -253,6 +256,7 @@ export default function ProductSelectVariant({ variants }: Props) {
         }
 
         setQuantity(newQuantity);
+        router.refresh();
     };
 
 

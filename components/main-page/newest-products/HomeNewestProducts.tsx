@@ -45,6 +45,7 @@ export default async function HomeNewestProducts() {
             <div className="md:hidden">
                 {firstProduct && (
                     <ProductCard
+                        id={firstProduct.id}
                         name={firstProduct.title}
                         price={firstProduct.product_variants?.[0]?.price ?? "ناموجود"}
                         imageUrl={firstProduct.image}
@@ -54,6 +55,7 @@ export default async function HomeNewestProducts() {
             <div className="hidden md:flex md:justify-between">
                 {productsWithImage.map((product, index) => (
                     <ProductCard
+                        id={product.id}
                         key={product.id}
                         name={product.title}
                         price={product.product_variants?.[0]?.price ?? "ناموجود"}

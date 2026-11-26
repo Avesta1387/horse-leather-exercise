@@ -1,5 +1,7 @@
 'use client'
 
+import ErrorBox from "@/components/error-box/ErrorBox";
+import { Spinner } from "@/components/ui/spinner";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import { useRef } from "react";
 
@@ -7,10 +9,12 @@ type InsertOtp = {
     value: string,
     onChange: (value: string) => void;
     phone: string,
-    onVerify: () => Promise<void>
+    onVerify: () => Promise<void>,
+    loading: boolean,
+    error: string | null;
 }
 
-export default function InsertOtpStep({ value, onChange, phone,onVerify }: InsertOtp) {
+export default function InsertOtpStep({ value, onChange, phone, onVerify, loading, error }: InsertOtp) {
 
     const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -80,16 +84,17 @@ export default function InsertOtpStep({ value, onChange, phone,onVerify }: Inser
                     />
                 ))}
             </div>
+            {error && <ErrorBox message={error} />}
             <button
                 type="button"
                 disabled={value.length !== 6}
-                className={`w-full text-xl leading-7.5 py-1 rounded-lg transition-colors ${value.length===6
+                className={`w-full text-xl leading-7.5 py-1 rounded-lg transition-colors ${value.length === 6
                     ? "text-white bg-primary-100 cursor-pointer"
                     : "text-primary-70 bg-primary-30 cursor-not-allowed"
                     }`}
                 onClick={onVerify}
             >
-                ورود
+                {loading ? <Spinner /> : ' ورود'}
             </button>
         </div>
     )

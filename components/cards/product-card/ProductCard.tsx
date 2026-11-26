@@ -1,17 +1,20 @@
 import Image from "next/image";
+import Link from "next/link";
 
 
 type ProductBoxProps = {
     name: string,
     price: number | string;
     imageUrl: string | null;
-    index?: number
+    index?: number,
+    id: string
 }
 
-export default function ProductCard({ name, price, imageUrl, index }: ProductBoxProps) {
+export default function ProductCard({ name, price, imageUrl, index, id }: ProductBoxProps) {
     return (
-        <div
-            className={`border-2 border-primary-30 rounded-2xl overflow-auto p-4 max-w-fit
+        <Link
+            href={`/products/${id}`}
+            className={`border-2 border-primary-30 rounded-2xl overflow-auto p-4 max-w-fit block
   ${index !== undefined && index > 1
                     ? "md:hidden"
                     : "md:block"
@@ -40,6 +43,6 @@ export default function ProductCard({ name, price, imageUrl, index }: ProductBox
             </div>
             <p className="text-3xl leading-12 mb-4 text-primary-100 md:text-xl md:leading-9 ">{name}</p>
             <p className="text-2xl leading-9 text-primary-100">{price} تومان</p>
-        </div>
+        </Link>
     )
 }

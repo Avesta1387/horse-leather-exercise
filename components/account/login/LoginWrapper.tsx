@@ -17,6 +17,8 @@ export default function LoginWrapper({ setOpen }: LoginWrapper) {
     const [phone, setPhone] = useState('');
     const [authError, setAuthError] = useState('');
     const [otp, setOtp] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null)
 
     const normalizedPhone = phone.startsWith("0")
         ? `+98${phone.slice(1)}`
@@ -35,40 +37,54 @@ export default function LoginWrapper({ setOpen }: LoginWrapper) {
             setAuthError(error.message);
             return;
         }
-        
+
 
         setStep(2);
     };
 
+    const authErrorMessages: Record<string, string> = {
+        otp_expired: 'کد تأیید اشتباه است یا اعتبار آن به پایان رسیده است.',
+        over_sms_send_rate_limit: 'تعداد درخواست‌های ارسال کد بیش از حد مجاز است. کمی بعد تلاش کنید.',
+        over_request_rate_limit: 'درخواست‌های زیادی ارسال کرده‌اید. لطفاً کمی صبر کنید.',
+        phone_not_confirmed: 'شماره موبایل شما تأیید نشده است.',
+        phone_exists: 'این شماره موبایل قبلاً ثبت شده است.',
+        otp_disabled: 'ورود با کد یک‌بارمصرف در دسترس نیست.',
+        sms_send_failed: 'ارسال پیامک با مشکل مواجه شد.',
+    };
+
     const handleVerifyOtp = async () => {
         if (otp.length !== 6) return;
-        const supabase = createBrowserSupabaseClient();
 
-        console.log(
-            "Supabase URL:",
-            process.env.NEXT_PUBLIC_SUPABASE_URL
-        );
+        setLoading(true);
+        setError(null);
 
-        const { data, error } = await supabase.auth.verifyOtp({
-            phone: normalizedPhone,
-            token: otp,
-            type: 'sms',
-        });
+        try {
+            const supabase = createBrowserSupabaseClient();
 
-        if (error) {
-            console.error(error.message);
-            return;
+            const { data, error: authError } =
+                await supabase.auth.verifyOtp({
+                    phone: normalizedPhone,
+                    token: otp,
+                    type: 'sms',
+                });
+
+            if (authError) {
+                setError(
+                    (authError.code && authErrorMessages[authError.code]) ??
+                    'خطایی رخ داد لطفاً دوباره تلاش کنید.'
+                );
+                return;
+            }
+
+            if (setOpen) setOpen(false);
+
+            router.push('/');
+
+        } catch {
+            setError('ارتباط با سرور برقرار نشد. دوباره تلاش کنید.');
+        } finally {
+            setLoading(false);
         }
-
-        if (setOpen) {
-            setOpen(false)
-        }
-
-        router.push('/');
-
-        console.log('OTP DATA:', data);
-        console.log('OTP ERROR: ', error)
-
     };
 
     return (
@@ -93,10 +109,12 @@ export default function LoginWrapper({ setOpen }: LoginWrapper) {
                     />
                 ) : (
                     <InsertOtpStep
+                        loading={loading}
                         value={otp}
                         onChange={setOtp}
                         phone={phone}
                         onVerify={handleVerifyOtp}
+                        error={error}
                     />
                 )}
             </div>

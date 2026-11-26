@@ -1,3 +1,4 @@
+
 import DesktopLogin from "@/components/auth/desktop-login/DesktopLogin";
 import SvgCallCalling from "@/components/icons/CallCalling";
 import SvgCartBag from "@/components/icons/CartBag";
@@ -8,6 +9,8 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
 import { connection } from "next/server";
+import CartButton from "./CartButton";
+import { CartProvider } from "@/components/user-cart/CartProvider";
 
 
 
@@ -18,6 +21,72 @@ export default async function DesktopHeader() {
     const supabase = await createServerSupabaseClient();
 
     const { data: { user } } = await supabase.auth.getUser();
+    // if (!user) return;
+
+    // const { data, error } = await supabase
+    //     .from('user_cart')
+    //     .select(`*`)
+    //     .eq('user_id', user.id);
+
+    // if (error) {
+    //     console.error(error);
+    //     return
+    // }
+
+    // const productsWithImage = (data ?? []).map((product) => {
+    //     const mainImage = product.products?.images?.find(
+    //         (image: string) => !/-\d+\./.test(image)
+    //     );
+
+    //     const imageUrl = mainImage
+    //         ? supabase.storage
+    //             .from("products_images")
+    //             .getPublicUrl(mainImage).data.publicUrl
+    //         : null;
+
+    //     return {
+    //         ...product,
+    //         image: imageUrl,
+    //     };
+    // });
+
+    let productsWithImage = [];
+
+    if (user) {
+        const { data, error } = await supabase
+            .from('user_cart')
+            .select(`
+            *,
+            products(*),
+            product_variants(
+                *,
+                sizes(*),
+                colors(*)
+            )
+        `)
+            .eq('user_id', user.id);
+
+        if (error) {
+            console.error(error);
+        } else {
+            productsWithImage = (data ?? []).map((product) => {
+                const mainImage = product.products?.images?.find(
+                    (image: string) => !/-\d+\./.test(image)
+                );
+
+                const imageUrl = mainImage
+                    ? supabase.storage
+                        .from("products_images")
+                        .getPublicUrl(mainImage).data.publicUrl
+                    : null;
+
+                return {
+                    ...product,
+                    image: imageUrl,
+                };
+            });
+        }
+    }
 
     return (
         <header className="hidden border-b border-black lg:block fixed z-40 bg-white w-full ">
@@ -40,9 +109,9 @@ export default async function DesktopHeader() {
                             </Link>
 
                         }
-                        <div className="bg-primary-30 py-2 px-4 rounded-lg">
-                            <SvgCartBag />
-                        </div>
+                        <CartProvider initialCart={productsWithImage} >
+                            <CartButton isUser={user ? true : false} />
+                        </CartProvider>
                     </div>
                 </div>
                 <div className="flex items-center justify-between">

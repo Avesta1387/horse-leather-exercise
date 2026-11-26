@@ -47,6 +47,7 @@ export default async function BestSellers() {
             <h6 className="text-6 mb-6 text-xl leading-7.5 md:text-2xl md:leading-12 ">پرفروش ترین محصولات</h6>
             <div className="md:hidden">
                 <ProductCard
+                    id={firstProduct?.id}
                     name={firstProduct?.title}
                     imageUrl={firstProduct?.image}
                     price={firstProduct?.product_variants?.[0]?.price ?? "ناموجود"}
@@ -55,6 +56,7 @@ export default async function BestSellers() {
             <div className="hidden md:flex md:justify-between">
                 {productsWithImage.map((product, index) => (
                     <ProductCard
+                        id={product.id}
                         key={product.id}
                         name={product?.title}
                         price={product.product_variants?.[0]?.price ?? "ناموجود"}
