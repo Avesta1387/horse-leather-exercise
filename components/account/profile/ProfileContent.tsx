@@ -33,6 +33,7 @@ export default function ProfileContent({
             <ProfileSectionWrapper
                 userId={userId}
                 selectedSection={sectionSelected}
+                setSelectedSection={setSectionSelected}
             />
         </div>
     );

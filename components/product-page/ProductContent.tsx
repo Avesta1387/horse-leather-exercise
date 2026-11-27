@@ -6,6 +6,7 @@ import ProductSelectVariant from "./ProductSelectVariant";
 import ProductComments from "./ProductComments";
 import ProductCard from "../cards/product-card/ProductCard";
 import ProductSpecifications from "./ProductSpecifications";
+import { getProductsWithImage } from "@/lib/utils/product";
 
 
 
@@ -63,22 +64,10 @@ export default async function ProductContent({ params }: Props) {
         console.error(similarsError)
     }
 
-    const similarProductsWithImage = (getSimilars ?? []).map((product) => {
-        const mainImage = product.images?.find(
-            (image: string) => !/-\d+\./.test(image)
-        );
-
-        const imageUrl = mainImage
-            ? supabase.storage
-                .from("products_images")
-                .getPublicUrl(mainImage).data.publicUrl
-            : null;
-
-        return {
-            ...product,
-            image: imageUrl,
-        };
-    });
+    const similarProductsWithImage=getProductsWithImage(
+        getSimilars??[],
+        supabase
+    )
 
 
 

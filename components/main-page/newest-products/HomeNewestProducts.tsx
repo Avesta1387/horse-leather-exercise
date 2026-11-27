@@ -1,5 +1,6 @@
 import ProductCard from "@/components/cards/product-card/ProductCard";
 import { createServerSupabaseClient } from "@/lib/supabase/server"
+import { getProductsWithImage } from "@/lib/utils/product";
 import Image from "next/image";
 import { connection } from "next/server";
 
@@ -20,22 +21,10 @@ export default async function HomeNewestProducts() {
             `)
         .order('created_at', { ascending: false });
 
-    const productsWithImage = (products ?? []).map((product) => {
-        const mainImage = product.images?.find(
-            (image: string) => !/-\d+\./.test(image)
-        );
-
-        const imageUrl = mainImage
-            ? supabase.storage
-                .from("products_images")
-                .getPublicUrl(mainImage).data.publicUrl
-            : null;
-
-        return {
-            ...product,
-            image: imageUrl,
-        };
-    });
+    const productsWithImage=getProductsWithImage(
+        products??[],
+        supabase
+    )
 
     const firstProduct = productsWithImage[0];
 
