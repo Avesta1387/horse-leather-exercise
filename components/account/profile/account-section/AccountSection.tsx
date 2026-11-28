@@ -64,8 +64,6 @@ export default function AccountSection({ imageUrl, userFirstName, userLastName, 
     const supabase = createBrowserSupabaseClient();
     const uploadAvatar = async (file: File, userId: string) => {
         const filePath = `${userId}/avatar`;
-        console.log("User ID:", userId);
-        console.log("File Path:", filePath);
         const { data, error } = await supabase.storage
             .from('avatars')
             .upload(filePath, file, {

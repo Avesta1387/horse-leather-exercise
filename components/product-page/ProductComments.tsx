@@ -8,6 +8,7 @@ import { Images } from "lucide-react";
 import Image from "next/image";
 import SvgProfile from "../icons/Profile";
 import SvgMessageCircle from "../icons/MessageCircle";
+import ProductAddComment from "./ProductAddComment";
 
 
 type Props = {
@@ -124,6 +125,7 @@ const supabase = createBrowserSupabaseClient();
 export default function ProductComments({ productId }: Props) {
 
     const [comments, setComments] = useState<ProductComment[]>([]);
+    const [newComment, setNewComment] = useState(false)
 
 
     useEffect(() => {
@@ -148,14 +150,18 @@ export default function ProductComments({ productId }: Props) {
             setComments(data ?? []);
         }
         checkExistComments()
+        setNewComment(false)
 
 
-    }, [productId])
+    }, [productId, newComment])
 
 
     return (
         <div className="pt-14">
-            <h5 className=" text-h5 text-2xl leading-8 mb-8 ">نظرات:</h5>
+            <div className="flex items-center justify-between">
+                <h5 className=" text-h5 text-2xl leading-8 mb-8 ">نظرات:</h5>
+                <ProductAddComment setNewComment={setNewComment} productId={productId} />
+            </div>
             {comments.length
                 ? <div className="lg:w-5/6 mx-auto">
                     {comments.map((comment, index) => (
